@@ -16,6 +16,7 @@ OpenGLContext::OpenGLContext(int width, int height, const std::string &windowNam
     glfwSetWindowUserPointer(_window, this);
 
     _shader = std::make_unique<Shader>("shaders/vs.vert", "shaders/fs.frag");
+    _panel = std::make_unique<UIPanel>(_window);
 }
 
 OpenGLContext::~OpenGLContext()
@@ -29,10 +30,14 @@ void OpenGLContext::Run()
     while (!glfwWindowShouldClose(_window))
     {
         PreRender();
+        _panel->PreRender();
 
         // TODO: Probably move this somewhere else, who knows!
         glUseProgram(_shader->GetProgramID());
 
+        _panel->Render();
+
+        _panel->PostRender();
         PostRender();
     }
 }

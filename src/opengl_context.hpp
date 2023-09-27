@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 
 #include "shader.hpp"
+#include "ui_panel.hpp"
 
 #include <string>
 #include <stdexcept>
@@ -23,6 +24,7 @@ private:
     int _height;
 
     std::unique_ptr<Shader> _shader;
+    std::unique_ptr<UIPanel> _panel;
 
     void PreRender();
     void PostRender();
