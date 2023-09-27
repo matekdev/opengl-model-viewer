@@ -3,6 +3,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include "model.hpp"
 #include "shader.hpp"
 #include "ui_panel.hpp"
 
@@ -23,6 +24,7 @@ private:
     int _width;
     int _height;
 
+    std::unique_ptr<Model> _model;
     std::unique_ptr<Shader> _shader;
     std::unique_ptr<UIPanel> _panel;
 

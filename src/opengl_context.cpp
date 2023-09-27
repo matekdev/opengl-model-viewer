@@ -15,6 +15,7 @@ OpenGLContext::OpenGLContext(int width, int height, const std::string &windowNam
     gladLoadGL();
     glfwSetWindowUserPointer(_window, this);
 
+    _model = std::make_unique<Model>("models/stanford-bunny.obj");
     _shader = std::make_unique<Shader>("shaders/vs.vert", "shaders/fs.frag");
     _panel = std::make_unique<UIPanel>(_window);
 }
@@ -32,9 +33,9 @@ void OpenGLContext::Run()
         PreRender();
         _panel->PreRender();
 
-        // TODO: Probably move this somewhere else, who knows!
         glUseProgram(_shader->GetProgramID());
 
+        _model->Render();
         _panel->Render();
 
         _panel->PostRender();
