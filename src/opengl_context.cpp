@@ -14,6 +14,8 @@ OpenGLContext::OpenGLContext(int width, int height, const std::string &windowNam
     glfwMakeContextCurrent(_window);
     gladLoadGL();
     glfwSetWindowUserPointer(_window, this);
+
+    _shader = std::make_unique<Shader>("shaders/vs.vert", "shaders/fs.frag");
 }
 
 OpenGLContext::~OpenGLContext()
@@ -27,6 +29,10 @@ void OpenGLContext::Run()
     while (!glfwWindowShouldClose(_window))
     {
         PreRender();
+
+        // TODO: Probably move this somewhere else, who knows!
+        glUseProgram(_shader->GetProgramID());
+
         PostRender();
     }
 }
