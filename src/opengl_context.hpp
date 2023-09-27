@@ -5,6 +5,7 @@
 
 #include "model.hpp"
 #include "shader.hpp"
+#include "camera.hpp"
 #include "ui_panel.hpp"
 
 #include <string>
@@ -26,6 +27,7 @@ private:
 
     std::unique_ptr<Model> _model;
     std::unique_ptr<Shader> _shader;
+    std::unique_ptr<Camera> _camera;
     std::unique_ptr<UIPanel> _panel;
 
     void PreRender();
