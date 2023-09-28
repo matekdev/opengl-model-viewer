@@ -7,12 +7,11 @@
 #include "backends/imgui_impl_glfw.h"
 #include "backends/imgui_impl_opengl3.h"
 
-class UIPanel
+class UIContext
 {
 public:
-    UIPanel(GLFWwindow *window);
-    ~UIPanel();
+    UIContext(GLFWwindow *window);
+    ~UIContext();
     void PreRender();
-    void Render();
     void PostRender();
 };

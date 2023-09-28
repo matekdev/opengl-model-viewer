@@ -1,11 +1,12 @@
 #include "opengl_context.hpp"
 
-OpenGLContext::OpenGLContext(int width, int height, const std::string &windowName) : Width(width), Height(height)
+OpenGLContext::OpenGLContext(int width, int height, const std::string &windowName) : _width(width), _height(height)
 {
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
     _window = glfwCreateWindow(width, height, windowName.c_str(), nullptr, nullptr);
     if (!_window)
@@ -14,13 +15,13 @@ OpenGLContext::OpenGLContext(int width, int height, const std::string &windowNam
     glfwMakeContextCurrent(_window);
     gladLoadGL();
     glfwSetWindowUserPointer(_window, this);
-    glfwSetWindowSizeCallback(_window, OpenGLContext::OnWindowResize);
     glfwSetScrollCallback(_window, OpenGLContext::OnScroll);
 
-    _model = std::make_unique<Model>("models/stanford-bunny.obj");
     _shader = std::make_unique<Shader>("shaders/vs.vert", "shaders/fs.frag");
-    _camera = std::make_unique<Camera>();
-    _panel = std::make_unique<UIPanel>(_window);
+
+    _uiContext = std::make_unique<UIContext>(_window);
+    _scenePanel = std::make_unique<ScenePanel>(800, 600);
+    _settingsPanel = std::make_unique<SettingsPanel>();
 }
 
 OpenGLContext::~OpenGLContext()
@@ -31,7 +32,7 @@ OpenGLContext::~OpenGLContext()
 
 Camera *OpenGLContext::GetCamera()
 {
-    return _camera.get();
+    return _scenePanel->GetCamera();
 }
 
 void OpenGLContext::Run()
@@ -39,26 +40,21 @@ void OpenGLContext::Run()
     while (!glfwWindowShouldClose(_window))
     {
         PreRender();
-        _panel->PreRender();
+        _uiContext->PreRender();
 
         glUseProgram(_shader->GetProgramID());
 
-        _camera->SetAspect(Width / Height);
-        _camera->Update(_shader.get());
+        _scenePanel->Render(_shader.get());
+        _settingsPanel->Render(_shader.get());
 
-        _model->Render(_shader.get());
-        _panel->Render();
-
-        _panel->PostRender();
+        _uiContext->PostRender();
         PostRender();
     }
 }
 
 void OpenGLContext::PreRender()
 {
-    glViewport(0, 0, Width, Height);
-    glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glViewport(0, 0, _width, _height);
 }
 
 void OpenGLContext::PostRender()
@@ -69,15 +65,7 @@ void OpenGLContext::PostRender()
     double x, y;
     glfwGetCursorPos(_window, &x, &y);
 
-    _camera->OnMouseMove(x, y, glfwGetMouseButton(_window, 0) == GLFW_PRESS);
-}
-
-// Callbacks
-void OpenGLContext::OnWindowResize(GLFWwindow *window, int width, int height)
-{
-    auto glContext = static_cast<OpenGLContext *>(glfwGetWindowUserPointer(window));
-    glContext->Width = width;
-    glContext->Height = height;
+    GetCamera()->OnMouseMove(x, y, glfwGetMouseButton(_window, 0) == GLFW_PRESS);
 }
 
 void OpenGLContext::OnScroll(GLFWwindow *window, double xoffset, double yoffset)

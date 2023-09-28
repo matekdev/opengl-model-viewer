@@ -1,6 +1,6 @@
-#include "ui_panel.hpp"
+#include "ui_context.hpp"
 
-UIPanel::UIPanel(GLFWwindow *window)
+UIContext::UIContext(GLFWwindow *window)
 {
     // GL 3.0 + GLSL 130
     const char *glsl_version = "#version 410";
@@ -52,14 +52,14 @@ UIPanel::UIPanel(GLFWwindow *window)
     ImGui_ImplOpenGL3_Init(glsl_version);
 }
 
-UIPanel::~UIPanel()
+UIContext::~UIContext()
 {
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
 }
 
-void UIPanel::PreRender()
+void UIContext::PreRender()
 {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
@@ -87,15 +87,7 @@ void UIPanel::PreRender()
     ImGui::End();
 }
 
-void UIPanel::Render()
-{
-    // ImGui::ShowDemoWindow();
-    ImGui::Begin("Settings");
-    ImGui::Text("Hello, world %d", 123);
-    ImGui::End();
-}
-
-void UIPanel::PostRender()
+void UIContext::PostRender()
 {
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

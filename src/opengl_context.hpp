@@ -3,10 +3,10 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "model/model.hpp"
 #include "shader.hpp"
-#include "camera.hpp"
-#include "ui_panel.hpp"
+#include "ui_context.hpp"
+#include "panels/settings_panel.hpp"
+#include "panels/scene_panel.hpp"
 
 #include <string>
 #include <stdexcept>
@@ -16,9 +16,6 @@
 class OpenGLContext
 {
 public:
-    int Width;
-    int Height;
-
     OpenGLContext(int width, int height, const std::string &windowName);
     ~OpenGLContext();
 
@@ -28,14 +25,17 @@ public:
 private:
     GLFWwindow *_window;
 
-    std::unique_ptr<Model> _model;
+    int _width;
+    int _height;
+
     std::unique_ptr<Shader> _shader;
-    std::unique_ptr<Camera> _camera;
-    std::unique_ptr<UIPanel> _panel;
+
+    std::unique_ptr<UIContext> _uiContext;
+    std::unique_ptr<ScenePanel> _scenePanel;
+    std::unique_ptr<SettingsPanel> _settingsPanel;
 
     void PreRender();
     void PostRender();
 
-    static void OnWindowResize(GLFWwindow *window, int width, int height);
     static void OnScroll(GLFWwindow *window, double xoffset, double yoffset);
 };
