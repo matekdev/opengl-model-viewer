@@ -10,8 +10,6 @@
 
 ## References
 
-- https://www.glfw.org/docs/3.3/
-- https://github.com/ocornut/imgui#readme
-- https://github.com/tinyobjloader/tinyobjloader#readme
+- https://learnopengl.com/Introduction
 - https://github.com/jayanam/jgl_demos
 - https://github.com/VictorGordan/opengl-tutorials

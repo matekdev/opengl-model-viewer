@@ -30,6 +30,11 @@ GLuint Shader::GetProgramID()
     return _id;
 }
 
+void Shader::SetInteger(const std::string &name, int value)
+{
+    glUniform1i(glGetUniformLocation(_id, name.c_str()), value);
+}
+
 GLuint Shader::CompileShader(GLenum shaderType, const std::string &shaderSource)
 {
     auto shaderId = glCreateShader(shaderType);
