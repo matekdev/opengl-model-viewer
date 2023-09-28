@@ -34,6 +34,9 @@ add_custom_target(copy_models
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         "${CMAKE_CURRENT_SOURCE_DIR}/models"
         "${CMAKE_BINARY_DIR}/models"
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${CMAKE_CURRENT_SOURCE_DIR}/shaders"
+        "${CMAKE_BINARY_DIR}/Debug/shaders"
     COMMENT "Copying models folder to the build directory"
 )
 
@@ -43,6 +46,9 @@ add_custom_target(copy_shaders
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         "${CMAKE_CURRENT_SOURCE_DIR}/shaders"
         "${CMAKE_BINARY_DIR}/shaders"
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${CMAKE_CURRENT_SOURCE_DIR}/models"
+        "${CMAKE_BINARY_DIR}/Debug/models"
     COMMENT "Copying shaders folder to the build directory"
 )
 
