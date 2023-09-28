@@ -16,6 +16,9 @@
 class OpenGLContext
 {
 public:
+    int Width;
+    int Height;
+
     OpenGLContext(int width, int height, const std::string &windowName);
     ~OpenGLContext();
 
@@ -24,8 +27,6 @@ public:
 
 private:
     GLFWwindow *_window;
-    int _width;
-    int _height;
 
     std::unique_ptr<Model> _model;
     std::unique_ptr<Shader> _shader;
@@ -35,5 +36,6 @@ private:
     void PreRender();
     void PostRender();
 
+    static void OnWindowResize(GLFWwindow *window, int width, int height);
     static void OnScroll(GLFWwindow *window, double xoffset, double yoffset);
 };

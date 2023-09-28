@@ -1,6 +1,6 @@
 #include "opengl_context.hpp"
 
-OpenGLContext::OpenGLContext(int width, int height, const std::string &windowName) : _width(width), _height(height)
+OpenGLContext::OpenGLContext(int width, int height, const std::string &windowName) : Width(width), Height(height)
 {
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -14,6 +14,7 @@ OpenGLContext::OpenGLContext(int width, int height, const std::string &windowNam
     glfwMakeContextCurrent(_window);
     gladLoadGL();
     glfwSetWindowUserPointer(_window, this);
+    glfwSetWindowSizeCallback(_window, OpenGLContext::OnWindowResize);
     glfwSetScrollCallback(_window, OpenGLContext::OnScroll);
 
     _model = std::make_unique<Model>("models/stanford-bunny.obj");
@@ -42,7 +43,7 @@ void OpenGLContext::Run()
 
         glUseProgram(_shader->GetProgramID());
 
-        _camera->SetAspect(_width / _height);
+        _camera->SetAspect(Width / Height);
         _camera->Update(_shader.get());
 
         _model->Render(_shader.get());
@@ -55,7 +56,7 @@ void OpenGLContext::Run()
 
 void OpenGLContext::PreRender()
 {
-    glViewport(0, 0, _width, _height);
+    glViewport(0, 0, Width, Height);
     glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
@@ -64,6 +65,14 @@ void OpenGLContext::PostRender()
 {
     glfwPollEvents();
     glfwSwapBuffers(_window);
+}
+
+// Callbacks
+void OpenGLContext::OnWindowResize(GLFWwindow *window, int width, int height)
+{
+    auto glContext = static_cast<OpenGLContext *>(glfwGetWindowUserPointer(window));
+    glContext->Width = width;
+    glContext->Height = height;
 }
 
 void OpenGLContext::OnScroll(GLFWwindow *window, double xoffset, double yoffset)
