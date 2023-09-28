@@ -6,7 +6,8 @@
 - [glad](https://github.com/Dav1dde/glad)
 - [glm](https://github.com/Groovounet/glm)
 - [imgui](https://github.com/ocornut/imgui)
-- [tinyobjloader](https://github.com/tinyobjloader/tinyobjloader)
+- [assimp](https://github.com/assimp/assimp)
+- [stb](https://github.com/nothings/stb)
 
 ## References
 
