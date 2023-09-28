@@ -1,6 +1,8 @@
 #pragma once
 
 #include <glad/glad.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include <string>
 
@@ -10,6 +12,7 @@ public:
     Shader(const std::string &vertexShaderPath, const std::string &fragmentShaderPath);
     GLuint GetProgramID();
     void SetInteger(const std::string &name, int value);
+    void SetMatrix4(const std::string &name, const glm::mat4 &mat4);
 
 private:
     GLuint _id;

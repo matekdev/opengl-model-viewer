@@ -1,35 +1,33 @@
-#ifndef CAMERA_CLASS_H
-#define CAMERA_CLASS_H
-
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-#define GLM_ENABLE_EXPERIMENTAL
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <glm/gtx/rotate_vector.hpp>
-#include <glm/gtx/vector_angle.hpp>
+#pragma once
 
 #include "shader.hpp"
+
+#include <glm/glm.hpp>
+#define GLM_ENABLE_EXPERIMENTAL
+#include <glm/gtx/quaternion.hpp>
 
 class Camera
 {
 public:
-    glm::vec3 Position;
-    glm::vec3 Orientation = glm::vec3(0.0f, 0.0f, -1.0f);
-    glm::vec3 Up = glm::vec3(0.0f, 1.0f, 0.0f);
+    Camera(float width, float height);
+    void SetAspect(float aspect);
+    void Update(Shader *shader);
 
-    bool firstClick = true;
+private:
+    const glm::vec3 _forward = {0.0f, 0.0f, -1.0f};
+    const glm::vec3 _up = {0.0f, 1.0f, 0.0f};
 
-    int width;
-    int height;
+    glm::vec3 _position;
+    glm::vec3 _focusPoint;
 
-    float speed = 0.1f;
-    float sensitivity = 100.0f;
+    glm::mat4 _viewMatrix;
+    glm::mat4 _projectionMatrix;
 
-    Camera(int width, int height, glm::vec3 position);
+    float _distance = 2.0f;
+    float _pitch = 0.0f;
+    float _yaw = 0.0f;
 
-    void Matrix(float FOVdeg, float nearPlane, float farPlane, Shader *shader, const char *uniform);
-    void Inputs(GLFWwindow *window);
+    void UpdateViewMatrix();
+    glm::quat GetDirection();
+    glm::vec3 GetForward();
 };
-#endif

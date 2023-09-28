@@ -17,7 +17,7 @@ OpenGLContext::OpenGLContext(int width, int height, const std::string &windowNam
 
     _model = std::make_unique<Model>("models/stanford-bunny.obj");
     _shader = std::make_unique<Shader>("shaders/vs.vert", "shaders/fs.frag");
-    _camera = std::make_unique<Camera>(width, height, glm::vec3(0.0f, 0.0f, 2.0f));
+    _camera = std::make_unique<Camera>(width, height);
     _panel = std::make_unique<UIPanel>(_window);
 }
 
@@ -36,8 +36,8 @@ void OpenGLContext::Run()
 
         glUseProgram(_shader->GetProgramID());
 
-        _camera->Inputs(_window);
-        _camera->Matrix(45.0f, 0.1f, 100.0f, _shader.get(), "camMatrix");
+        _camera->SetAspect(_width / _height);
+        _camera->Update(_shader.get());
 
         _model->Render(_shader.get());
         _panel->Render();
