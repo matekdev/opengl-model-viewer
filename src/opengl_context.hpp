@@ -19,6 +19,7 @@ public:
     OpenGLContext(int width, int height, const std::string &windowName);
     ~OpenGLContext();
 
+    Camera *GetCamera();
     void Run();
 
 private:
@@ -33,4 +34,6 @@ private:
 
     void PreRender();
     void PostRender();
+
+    static void OnScroll(GLFWwindow *window, double xoffset, double yoffset);
 };

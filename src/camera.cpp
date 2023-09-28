@@ -1,11 +1,10 @@
 #include "camera.hpp"
 
-Camera::Camera(float width, float height)
+Camera::Camera()
 {
     _position = glm::vec3(0.0f, 0.0f, _distance);
     _focusPoint = glm::vec3(0.0f, 0.0f, 0.0f);
 
-    SetAspect(width / height);
     UpdateViewMatrix();
 }
 
@@ -20,6 +19,12 @@ void Camera::Update(Shader *shader)
     shader->SetMatrix4("model", model);
     shader->SetMatrix4("view", _viewMatrix);
     shader->SetMatrix4("projection", _projectionMatrix);
+}
+
+void Camera::OnScroll(double delta)
+{
+    _distance += -delta * 0.5f;
+    UpdateViewMatrix();
 }
 
 void Camera::UpdateViewMatrix()

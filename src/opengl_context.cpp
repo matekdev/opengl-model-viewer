@@ -14,10 +14,11 @@ OpenGLContext::OpenGLContext(int width, int height, const std::string &windowNam
     glfwMakeContextCurrent(_window);
     gladLoadGL();
     glfwSetWindowUserPointer(_window, this);
+    glfwSetScrollCallback(_window, OpenGLContext::OnScroll);
 
     _model = std::make_unique<Model>("models/stanford-bunny.obj");
     _shader = std::make_unique<Shader>("shaders/vs.vert", "shaders/fs.frag");
-    _camera = std::make_unique<Camera>(width, height);
+    _camera = std::make_unique<Camera>();
     _panel = std::make_unique<UIPanel>(_window);
 }
 
@@ -25,6 +26,11 @@ OpenGLContext::~OpenGLContext()
 {
     glfwDestroyWindow(_window);
     glfwTerminate();
+}
+
+Camera *OpenGLContext::GetCamera()
+{
+    return _camera.get();
 }
 
 void OpenGLContext::Run()
@@ -58,4 +64,10 @@ void OpenGLContext::PostRender()
 {
     glfwPollEvents();
     glfwSwapBuffers(_window);
+}
+
+void OpenGLContext::OnScroll(GLFWwindow *window, double xoffset, double yoffset)
+{
+    auto glContext = static_cast<OpenGLContext *>(glfwGetWindowUserPointer(window));
+    glContext->GetCamera()->OnScroll(yoffset);
 }

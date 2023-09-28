@@ -9,9 +9,10 @@
 class Camera
 {
 public:
-    Camera(float width, float height);
+    Camera();
     void SetAspect(float aspect);
     void Update(Shader *shader);
+    void OnScroll(double delta);
 
 private:
     const glm::vec3 _forward = {0.0f, 0.0f, -1.0f};

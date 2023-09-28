@@ -89,7 +89,7 @@ void UIPanel::PreRender()
 
 void UIPanel::Render()
 {
-    ImGui::ShowDemoWindow();
+    // ImGui::ShowDemoWindow();
     ImGui::Begin("Settings");
     ImGui::Text("Hello, world %d", 123);
     ImGui::End();
