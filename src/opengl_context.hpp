@@ -3,7 +3,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "model.hpp"
+#include "model/model.hpp"
 #include "shader.hpp"
 #include "camera.hpp"
 #include "ui_panel.hpp"
@@ -11,6 +11,7 @@
 #include <string>
 #include <stdexcept>
 #include <memory>
+#include <stdexcept>
 
 class OpenGLContext
 {

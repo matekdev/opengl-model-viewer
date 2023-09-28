@@ -39,7 +39,7 @@ void OpenGLContext::Run()
         _camera->Inputs(_window);
         _camera->Matrix(45.0f, 0.1f, 100.0f, _shader.get(), "camMatrix");
 
-        _model->Render();
+        _model->Render(_shader.get());
         _panel->Render();
 
         _panel->PostRender();
