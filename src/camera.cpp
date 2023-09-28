@@ -23,8 +23,25 @@ void Camera::Update(Shader *shader)
 
 void Camera::OnScroll(double delta)
 {
-    _distance += -delta * 0.5f;
+    _distance += -delta * 0.3f;
     UpdateViewMatrix();
+}
+
+void Camera::OnMouseMove(double x, double y, bool isLeftMouseButtonDown)
+{
+    glm::vec2 mousePos{x, y};
+    glm::vec2 delta = (mousePos - _currentMousePos) * 0.004f;
+
+    if (isLeftMouseButtonDown)
+    {
+        auto up = glm::rotate(GetDirection(), _up);
+        float sign = up.y < 0 ? -1.0f : 1.0f;
+        _yaw += sign * delta.x * ROTATION_SPEED;
+        _pitch += delta.y * ROTATION_SPEED;
+        UpdateViewMatrix();
+    }
+
+    _currentMousePos = mousePos;
 }
 
 void Camera::UpdateViewMatrix()

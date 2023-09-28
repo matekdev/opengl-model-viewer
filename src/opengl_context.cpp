@@ -65,6 +65,11 @@ void OpenGLContext::PostRender()
 {
     glfwPollEvents();
     glfwSwapBuffers(_window);
+
+    double x, y;
+    glfwGetCursorPos(_window, &x, &y);
+
+    _camera->OnMouseMove(x, y, glfwGetMouseButton(_window, 0) == GLFW_PRESS);
 }
 
 // Callbacks

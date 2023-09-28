@@ -13,8 +13,10 @@ public:
     void SetAspect(float aspect);
     void Update(Shader *shader);
     void OnScroll(double delta);
+    void OnMouseMove(double x, double y, bool isLeftMouseButtonDown);
 
 private:
+    const float ROTATION_SPEED = 2.0f;
     const glm::vec3 _forward = {0.0f, 0.0f, -1.0f};
     const glm::vec3 _up = {0.0f, 1.0f, 0.0f};
 
@@ -27,6 +29,7 @@ private:
     float _distance = 2.0f;
     float _pitch = 0.0f;
     float _yaw = 0.0f;
+    glm::vec2 _currentMousePos = {0.0f, 0.0f};
 
     void UpdateViewMatrix();
     glm::quat GetDirection();
