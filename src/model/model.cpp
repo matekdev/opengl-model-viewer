@@ -6,8 +6,21 @@
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
 
-Model::Model(const std::string &filePath)
+Model::Model()
 {
+}
+
+void Model::Render(Shader *shader)
+{
+    for (auto &&mesh : _meshes)
+        mesh.Render(shader);
+}
+
+void Model::Load(const std::string &filePath)
+{
+    _meshes.clear();
+    _texturesLoaded.clear();
+
     Assimp::Importer importer;
     auto scene = importer.ReadFile(filePath, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
     if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
@@ -16,12 +29,6 @@ Model::Model(const std::string &filePath)
     _directory = filePath.substr(0, filePath.find_last_of('/'));
 
     ProcessNode(scene->mRootNode, scene);
-}
-
-void Model::Render(Shader *shader)
-{
-    for (auto &&mesh : _meshes)
-        mesh.Render(shader);
 }
 
 void Model::ProcessNode(aiNode *node, const aiScene *scene)

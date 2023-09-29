@@ -14,8 +14,9 @@
 class Model
 {
 public:
-    Model(const std::string &filePath);
+    Model();
     void Render(Shader *shader);
+    void Load(const std::string &filePath);
 
 private:
     std::vector<Mesh> _meshes;

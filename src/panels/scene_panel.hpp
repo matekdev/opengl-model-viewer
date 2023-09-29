@@ -18,6 +18,7 @@ class ScenePanel
 public:
     ScenePanel(int width, int height);
     void Render(Shader *shader);
+    void LoadMesh(const std::string &filePath);
     Camera *GetCamera();
 
 private:

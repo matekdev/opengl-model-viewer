@@ -21,7 +21,8 @@ OpenGLContext::OpenGLContext(int width, int height, const std::string &windowNam
 
     _uiContext = std::make_unique<UIContext>(_window);
     _scenePanel = std::make_unique<ScenePanel>(800, 600);
-    _settingsPanel = std::make_unique<SettingsPanel>();
+    _settingsPanel = std::make_unique<SettingsPanel>([this](const std::string &filePath)
+                                                     { _scenePanel->LoadMesh(filePath); });
 }
 
 OpenGLContext::~OpenGLContext()

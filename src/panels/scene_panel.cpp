@@ -2,7 +2,7 @@
 
 ScenePanel::ScenePanel(int width, int height) : _width(width), _height(height)
 {
-    _model = std::make_unique<Model>("models/stanford-bunny.obj");
+    _model = std::make_unique<Model>();
     _camera = std::make_unique<Camera>();
 
     glGenFramebuffers(1, &_fbo);
@@ -50,6 +50,11 @@ void ScenePanel::Render(Shader *shader)
     ImGui::Image(reinterpret_cast<void *>(_textureId), ImVec2{size.x, size.y}, ImVec2{0, 1}, ImVec2{1, 0});
 
     ImGui::End();
+}
+
+void ScenePanel::LoadMesh(const std::string &filePath)
+{
+    _model->Load(filePath);
 }
 
 Camera *ScenePanel::GetCamera()

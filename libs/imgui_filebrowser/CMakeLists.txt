@@ -1,0 +1,2 @@
+add_library(imgui_filebrowser INTERFACE)
+target_include_directories(imgui_filebrowser INTERFACE imfilebrowser.h)
