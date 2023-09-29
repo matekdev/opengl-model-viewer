@@ -52,3 +52,13 @@ void Mesh::Render(Shader *shader)
     glDrawElements(GL_TRIANGLES, _indices.size(), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 }
+
+int Mesh::VertexCount()
+{
+    return _vertices.size();
+}
+
+int Mesh::IndexCount()
+{
+    return _indices.size();
+}

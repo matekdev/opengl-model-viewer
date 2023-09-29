@@ -16,6 +16,7 @@ OpenGLContext::OpenGLContext(int width, int height, const std::string &windowNam
     gladLoadGL();
     glfwSetWindowUserPointer(_window, this);
     glfwSetScrollCallback(_window, OpenGLContext::OnScroll);
+    glfwSwapInterval(0);
 
     _shader = std::make_unique<Shader>("shaders/vs.vert", "shaders/fs.frag");
 

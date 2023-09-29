@@ -20,6 +20,9 @@ public:
     void Render(Shader *shader);
     void Load(const std::string &filePath);
 
+    int VertexCount();
+    int TriangleCount();
+
 private:
     std::vector<Mesh> _meshes;
     std::vector<Texture> _texturesLoaded;

@@ -36,6 +36,13 @@ void SettingsPanel::Render(Camera *camera, Model *model, Shader *shader)
         ImGui::SliderFloat("Rotation Speed", &camera->RotationSpeed, 0.0f, 5.0f);
     }
 
+    if (ImGui::CollapsingHeader("Stats", ImGuiTreeNodeFlags_DefaultOpen))
+    {
+        ImGui::Text(("FPS: " + std::to_string((int)ImGui::GetIO().Framerate)).c_str());
+        ImGui::Text(("Vertices:" + std::to_string(model->VertexCount())).c_str());
+        ImGui::Text(("Triangles:" + std::to_string(model->TriangleCount())).c_str());
+    }
+
     ImGui::End();
 
     _fileDialog.Display();
