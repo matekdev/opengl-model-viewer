@@ -2,10 +2,17 @@
 
 Camera::Camera()
 {
+    Reset();
+    UpdateViewMatrix();
+}
+
+void Camera::Reset()
+{
+    _distance = 2.0f;
+    _pitch = 0.0f;
+    _yaw = 0.0f;
     _position = glm::vec3(0.0f, 0.0f, _distance);
     _focusPoint = glm::vec3(0.0f, 0.0f, 0.0f);
-
-    UpdateViewMatrix();
 }
 
 void Camera::SetAspect(float aspect)

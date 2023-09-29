@@ -12,6 +12,7 @@ public:
     float RotationSpeed = 0.0f;
 
     Camera();
+    void Reset();
     void SetAspect(float aspect);
     void Update(Shader *shader);
     void OnScroll(double delta);
@@ -28,9 +29,9 @@ private:
     glm::mat4 _viewMatrix;
     glm::mat4 _projectionMatrix;
 
-    float _distance = 2.0f;
-    float _pitch = 0.0f;
-    float _yaw = 0.0f;
+    float _distance;
+    float _pitch;
+    float _yaw;
     glm::vec2 _currentMousePos = {0.0f, 0.0f};
 
     void UpdateViewMatrix();

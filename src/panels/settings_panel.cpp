@@ -27,6 +27,9 @@ void SettingsPanel::Render(Camera *camera, Model *model, Shader *shader)
 
     if (ImGui::CollapsingHeader("Camera", ImGuiTreeNodeFlags_DefaultOpen))
     {
+        if (ImGui::Button("Reset Position", ImVec2(-FLT_MIN, 0.0f)))
+            camera->Reset();
+
         ImGui::SliderFloat("Rotation Speed", &camera->RotationSpeed, 0.0f, 5.0f);
     }
 
