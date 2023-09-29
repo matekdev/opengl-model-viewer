@@ -50,6 +50,13 @@ void Camera::OnMouseMove(double x, double y, Input::Button buttonPressed)
         _yaw += sign * delta.x * ROTATION_SPEED;
         _pitch += delta.y * ROTATION_SPEED;
     }
+    else if (buttonPressed == Input::Middle)
+    {
+        glm::vec2 delta = (mousePos - _currentMousePos) * 0.003f;
+
+        _focusPoint += -glm::rotate(GetDirection(), _right) * delta.x * _distance;
+        _focusPoint += glm::rotate(GetDirection(), _up) * delta.y * _distance;
+    }
 
     _currentMousePos = mousePos;
 }
