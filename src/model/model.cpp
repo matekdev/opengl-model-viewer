@@ -12,8 +12,14 @@ Model::Model()
 
 void Model::Render(Shader *shader)
 {
+    if (WireFrame)
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
     for (auto &&mesh : _meshes)
         mesh.Render(shader);
+
+    if (WireFrame)
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
 void Model::Load(const std::string &filePath)

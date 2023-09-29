@@ -14,6 +14,8 @@
 class Model
 {
 public:
+    bool WireFrame = false;
+
     Model();
     void Render(Shader *shader);
     void Load(const std::string &filePath);

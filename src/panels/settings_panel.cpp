@@ -3,17 +3,17 @@
 SettingsPanel::SettingsPanel(const std::function<void(const std::string &)> &callback)
 {
     _onMeshLoad = callback;
-    _currentFile = "< ... >";
-    _fileDialog.SetTitle("Open mesh");
+    _currentFile = "";
+    _fileDialog.SetTitle("Open model");
     _fileDialog.SetTypeFilters({".fbx", ".obj", ".gltf", ".dae", ".blend", ".3ds"});
 }
 
-void SettingsPanel::Render(Shader *shader)
+void SettingsPanel::Render(Model *model, Shader *shader)
 {
     ImGui::ShowDemoWindow();
     ImGui::Begin("Settings");
 
-    if (ImGui::CollapsingHeader("Mesh", ImGuiTreeNodeFlags_DefaultOpen))
+    if (ImGui::CollapsingHeader("Model", ImGuiTreeNodeFlags_DefaultOpen))
     {
 
         if (ImGui::Button("Open..."))
@@ -21,6 +21,8 @@ void SettingsPanel::Render(Shader *shader)
 
         ImGui::SameLine(0, 5.0f);
         ImGui::Text(_currentFile.c_str());
+
+        ImGui::Checkbox("Wireframe", &model->WireFrame);
     }
 
     ImGui::End();

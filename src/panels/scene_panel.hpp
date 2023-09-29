@@ -20,6 +20,7 @@ public:
     void Render(Shader *shader);
     void LoadMesh(const std::string &filePath);
     Camera *GetCamera();
+    Model *GetModel();
 
 private:
     int _width;
