@@ -46,7 +46,7 @@ void OpenGLContext::Run()
         glUseProgram(_shader->GetProgramID());
 
         _scenePanel->Render(_shader.get());
-        _settingsPanel->Render(_scenePanel->GetModel(), _shader.get());
+        _settingsPanel->Render(_scenePanel->GetCamera(), _scenePanel->GetModel(), _shader.get());
 
         _uiContext->PostRender();
         PostRender();

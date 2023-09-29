@@ -15,6 +15,11 @@ void Camera::SetAspect(float aspect)
 
 void Camera::Update(Shader *shader)
 {
+    if (RotationSpeed > 0)
+        _yaw += RotationSpeed * 0.01f;
+
+    UpdateViewMatrix();
+
     glm::mat4 model{1.0f};
     shader->SetMatrix4("model", model);
     shader->SetMatrix4("view", _viewMatrix);
@@ -24,7 +29,6 @@ void Camera::Update(Shader *shader)
 void Camera::OnScroll(double delta)
 {
     _distance += -delta * 0.3f;
-    UpdateViewMatrix();
 }
 
 void Camera::OnMouseMove(double x, double y, bool isLeftMouseButtonDown)
@@ -38,7 +42,6 @@ void Camera::OnMouseMove(double x, double y, bool isLeftMouseButtonDown)
         float sign = up.y < 0 ? -1.0f : 1.0f;
         _yaw += sign * delta.x * ROTATION_SPEED;
         _pitch += delta.y * ROTATION_SPEED;
-        UpdateViewMatrix();
     }
 
     _currentMousePos = mousePos;

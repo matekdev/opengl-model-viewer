@@ -8,7 +8,7 @@ SettingsPanel::SettingsPanel(const std::function<void(const std::string &)> &cal
     _fileDialog.SetTypeFilters({".fbx", ".obj", ".gltf", ".dae", ".blend", ".3ds"});
 }
 
-void SettingsPanel::Render(Model *model, Shader *shader)
+void SettingsPanel::Render(Camera *camera, Model *model, Shader *shader)
 {
     ImGui::ShowDemoWindow();
     ImGui::Begin("Settings");
@@ -23,6 +23,11 @@ void SettingsPanel::Render(Model *model, Shader *shader)
         ImGui::Text(_currentFile.c_str());
 
         ImGui::Checkbox("Wireframe", &model->WireFrame);
+    }
+
+    if (ImGui::CollapsingHeader("Camera", ImGuiTreeNodeFlags_DefaultOpen))
+    {
+        ImGui::SliderFloat("Rotation Speed", &camera->RotationSpeed, 0.0f, 5.0f);
     }
 
     ImGui::End();

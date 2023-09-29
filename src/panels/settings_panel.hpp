@@ -5,6 +5,7 @@
 
 #include "external/imfilebrowser.h"
 #include "../shader.hpp"
+#include "../camera.hpp"
 #include "../model/model.hpp"
 
 #include <functional>
@@ -13,7 +14,7 @@ class SettingsPanel
 {
 public:
     SettingsPanel(const std::function<void(const std::string &)> &callback);
-    void Render(Model *model, Shader *shader);
+    void Render(Camera *camera, Model *model, Shader *shader);
 
 private:
     ImGui::FileBrowser _fileDialog;

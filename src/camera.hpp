@@ -9,6 +9,8 @@
 class Camera
 {
 public:
+    float RotationSpeed = 0.0f;
+
     Camera();
     void SetAspect(float aspect);
     void Update(Shader *shader);
