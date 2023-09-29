@@ -14,14 +14,13 @@
 class Model
 {
 public:
+    int VertexCount = 0;
+    int TriangleCount = 0;
     bool WireFrame = false;
 
     Model();
     void Render(Shader *shader);
     void Load(const std::string &filePath);
-
-    int VertexCount();
-    int TriangleCount();
 
 private:
     std::vector<Mesh> _meshes;
@@ -32,4 +31,5 @@ private:
     Mesh ProcessMesh(aiMesh *mesh, const aiScene *scene);
     std::vector<Texture> LoadMaterialTextures(aiMaterial *mat, aiTextureType type, const std::string &typeName);
     GLuint TextureFromFile(const std::string &path, const std::string &directory);
+    void CalculateStats();
 };

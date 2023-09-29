@@ -26,11 +26,11 @@ struct Texture
 class Mesh
 {
 public:
+    int VertexCount = 0;
+    int IndexCount = 0;
+
     Mesh(const std::vector<Vertex> &vertices, const std::vector<GLuint> &indices, std::vector<Texture> textures);
     void Render(Shader *shader);
-
-    int VertexCount();
-    int IndexCount();
 
 private:
     GLuint _vao;

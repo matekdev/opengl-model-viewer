@@ -37,25 +37,7 @@ void Model::Load(const std::string &filePath)
     _directory = filePath.substr(0, filePath.find_last_of('/'));
 
     ProcessNode(scene->mRootNode, scene);
-}
-
-int Model::VertexCount()
-{
-    return std::accumulate(_meshes.begin(), _meshes.end(), 0,
-                           [](int accumulator, Mesh &mesh)
-                           {
-                               return accumulator + mesh.VertexCount();
-                           });
-}
-
-int Model::TriangleCount()
-{
-    return std::accumulate(_meshes.begin(), _meshes.end(), 0,
-                           [](int accumulator, Mesh &mesh)
-                           {
-                               return accumulator + mesh.IndexCount();
-                           }) /
-           3;
+    CalculateStats();
 }
 
 void Model::ProcessNode(aiNode *node, const aiScene *scene)
@@ -225,4 +207,22 @@ GLuint Model::TextureFromFile(const std::string &path, const std::string &direct
     }
 
     return textureID;
+}
+
+void Model::CalculateStats()
+{
+    VertexCount = std::accumulate(
+        _meshes.begin(), _meshes.end(), 0,
+        [](int accumulator, Mesh &mesh)
+        {
+            return accumulator + mesh.VertexCount;
+        });
+
+    TriangleCount = std::accumulate(
+                        _meshes.begin(), _meshes.end(), 0,
+                        [](int accumulator, Mesh &mesh)
+                        {
+                            return accumulator + mesh.IndexCount;
+                        }) /
+                    3;
 }

@@ -26,6 +26,9 @@ Mesh::Mesh(const std::vector<Vertex> &vertices, const std::vector<GLuint> &indic
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)offsetof(Vertex, TexCoords));
 
     glBindVertexArray(0);
+
+    VertexCount = _vertices.size();
+    IndexCount = _indices.size();
 }
 
 void Mesh::Render(Shader *shader)
@@ -51,14 +54,4 @@ void Mesh::Render(Shader *shader)
     glBindVertexArray(_vao);
     glDrawElements(GL_TRIANGLES, _indices.size(), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
-}
-
-int Mesh::VertexCount()
-{
-    return _vertices.size();
-}
-
-int Mesh::IndexCount()
-{
-    return _indices.size();
 }
