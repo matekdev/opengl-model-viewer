@@ -67,7 +67,7 @@ void OpenGLContext::PostRender()
     double x, y;
     glfwGetCursorPos(_window, &x, &y);
 
-    GetCamera()->OnMouseMove(x, y, glfwGetMouseButton(_window, 0) == GLFW_PRESS);
+    GetCamera()->OnMouseMove(x, y, Input::GetPressedButton(_window));
 }
 
 void OpenGLContext::OnScroll(GLFWwindow *window, double xoffset, double yoffset)

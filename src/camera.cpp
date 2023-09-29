@@ -38,12 +38,12 @@ void Camera::OnScroll(double delta)
     _distance += -delta * 0.3f;
 }
 
-void Camera::OnMouseMove(double x, double y, bool isLeftMouseButtonDown)
+void Camera::OnMouseMove(double x, double y, Input::Button buttonPressed)
 {
     glm::vec2 mousePos{x, y};
     glm::vec2 delta = (mousePos - _currentMousePos) * 0.004f;
 
-    if (isLeftMouseButtonDown)
+    if (buttonPressed == Input::Left)
     {
         auto up = glm::rotate(GetDirection(), _up);
         float sign = up.y < 0 ? -1.0f : 1.0f;

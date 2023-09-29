@@ -1,6 +1,7 @@
 #pragma once
 
 #include "shader.hpp"
+#include "input.hpp"
 
 #include <glm/glm.hpp>
 #define GLM_ENABLE_EXPERIMENTAL
@@ -16,7 +17,7 @@ public:
     void SetAspect(float aspect);
     void Update(Shader *shader);
     void OnScroll(double delta);
-    void OnMouseMove(double x, double y, bool isLeftMouseButtonDown);
+    void OnMouseMove(double x, double y, Input::Button buttonPressed);
 
 private:
     const float ROTATION_SPEED = 2.0f;
