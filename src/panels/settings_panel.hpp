@@ -1,5 +1,7 @@
 #pragma once
 
+#include <glm/gtc/type_ptr.hpp>
+
 #include "imgui.h"
 #include "imgui_internal.h"
 

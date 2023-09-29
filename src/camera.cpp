@@ -8,11 +8,11 @@ Camera::Camera()
 
 void Camera::Reset()
 {
-    _distance = 2.0f;
+    Distance = 2.0f;
     _pitch = 0.0f;
     _yaw = 0.0f;
-    _position = glm::vec3(0.0f, 0.0f, _distance);
-    _focusPoint = glm::vec3(0.0f, 0.0f, 0.0f);
+    Position = glm::vec3(0.0f, 0.0f, Distance);
+    FocusPoint = glm::vec3(0.0f, 0.0f, 0.0f);
 }
 
 void Camera::SetAspect(float aspect)
@@ -35,7 +35,8 @@ void Camera::Update(Shader *shader)
 
 void Camera::OnScroll(double delta)
 {
-    _distance += -delta * 0.3f;
+    Distance += -delta * 0.3f;
+    Distance = std::max(Distance, 0.0f);
 }
 
 void Camera::OnMouseMove(double x, double y, Input::Button buttonPressed)
@@ -54,8 +55,8 @@ void Camera::OnMouseMove(double x, double y, Input::Button buttonPressed)
     {
         glm::vec2 delta = (mousePos - _currentMousePos) * 0.003f;
 
-        _focusPoint += -glm::rotate(GetDirection(), _right) * delta.x * _distance;
-        _focusPoint += glm::rotate(GetDirection(), _up) * delta.y * _distance;
+        FocusPoint += -glm::rotate(GetDirection(), _right) * delta.x * Distance;
+        FocusPoint += glm::rotate(GetDirection(), _up) * delta.y * Distance;
     }
 
     _currentMousePos = mousePos;
@@ -63,10 +64,10 @@ void Camera::OnMouseMove(double x, double y, Input::Button buttonPressed)
 
 void Camera::UpdateViewMatrix()
 {
-    _position = _focusPoint - GetForward() * _distance;
+    Position = FocusPoint - GetForward() * Distance;
 
     glm::quat orientation = GetDirection();
-    _viewMatrix = glm::translate(glm::mat4(1.0f), _position) * glm::toMat4(orientation);
+    _viewMatrix = glm::translate(glm::mat4(1.0f), Position) * glm::toMat4(orientation);
     _viewMatrix = glm::inverse(_viewMatrix);
 }
 

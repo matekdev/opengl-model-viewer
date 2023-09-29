@@ -10,7 +10,10 @@
 class Camera
 {
 public:
+    glm::vec3 Position;
+    glm::vec3 FocusPoint;
     float RotationSpeed = 0.0f;
+    float Distance;
 
     Camera();
     void Reset();
@@ -25,13 +28,9 @@ private:
     const glm::vec3 _up = {0.0f, 1.0f, 0.0f};
     const glm::vec3 _right = {1.0f, 0.0f, 0.0f};
 
-    glm::vec3 _position;
-    glm::vec3 _focusPoint;
-
     glm::mat4 _viewMatrix;
     glm::mat4 _projectionMatrix;
 
-    float _distance;
     float _pitch;
     float _yaw;
     glm::vec2 _currentMousePos = {0.0f, 0.0f};
