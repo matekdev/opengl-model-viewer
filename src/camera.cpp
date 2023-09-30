@@ -39,19 +39,19 @@ void Camera::OnScroll(double delta)
     Distance = std::max(Distance, 0.0f);
 }
 
-void Camera::OnMouseMove(double x, double y, Input::Button buttonPressed)
+void Camera::OnMouseMove(double x, double y, bool isWindowFocused, Input::Button buttonPressed)
 {
     glm::vec2 mousePos{x, y};
     glm::vec2 delta = (mousePos - _currentMousePos) * 0.004f;
 
-    if (buttonPressed == Input::Left)
+    if (buttonPressed == Input::Left && isWindowFocused)
     {
         auto up = glm::rotate(GetDirection(), _up);
         float sign = up.y < 0 ? -1.0f : 1.0f;
         _yaw += sign * delta.x * ROTATION_SPEED;
         _pitch += delta.y * ROTATION_SPEED;
     }
-    else if (buttonPressed == Input::Middle)
+    else if (buttonPressed == Input::Middle && isWindowFocused)
     {
         glm::vec2 delta = (mousePos - _currentMousePos) * 0.003f;
 

@@ -74,10 +74,7 @@ Camera *ScenePanel::GetCamera()
 
 void ScenePanel::HandleMouseInput()
 {
-    if (!ImGui::IsWindowFocused())
-        return;
-
     double x, y;
     glfwGetCursorPos(_window, &x, &y);
-    GetCamera()->OnMouseMove(x, y, Input::GetPressedButton(_window));
+    GetCamera()->OnMouseMove(x, y, ImGui::IsWindowFocused(), Input::GetPressedButton(_window));
 }
