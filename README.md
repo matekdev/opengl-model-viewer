@@ -15,6 +15,15 @@ Here is a brief overview of the project composition. It should help you understa
       - camera.cpp
       - model.cpp
 
+## Building
+
+```
+mkdir build
+cd build
+cmake ..
+make
+```
+
 ## Libraries
 
 - [glfw](https://github.com/glfw/glfw)
