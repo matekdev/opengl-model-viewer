@@ -35,6 +35,12 @@ void Shader::SetInteger(const std::string &name, int value)
     glUniform1i(glGetUniformLocation(_id, name.c_str()), value);
 }
 
+void Shader::SetVector3(const std::string &name, const glm::vec3 &vec3)
+{
+    GLint myLoc = glGetUniformLocation(_id, name.c_str());
+    glUniform3fv(myLoc, 1, glm::value_ptr(vec3));
+}
+
 void Shader::SetMatrix4(const std::string &name, const glm::mat4 &mat4)
 {
     GLint myLoc = glGetUniformLocation(_id, name.c_str());

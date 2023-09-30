@@ -23,6 +23,7 @@ void SettingsPanel::Render(Camera *camera, Model *model, Shader *shader)
         ImGui::Text(_currentFile.c_str());
 
         ImGui::Checkbox("Wireframe", &model->WireFrame);
+        ImGui::ColorPicker3("Colour", glm::value_ptr(model->Color), ImGuiColorEditFlags_NoSidePreview | ImGuiColorEditFlags_NoSmallPreview);
     }
 
     if (ImGui::CollapsingHeader("Camera", ImGuiTreeNodeFlags_DefaultOpen))

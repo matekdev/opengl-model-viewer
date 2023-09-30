@@ -14,6 +14,7 @@
 class Model
 {
 public:
+    glm::vec3 Color = glm::vec3(1.0f);
     int VertexCount = 0;
     int TriangleCount = 0;
     bool WireFrame = false;

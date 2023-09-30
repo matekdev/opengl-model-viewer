@@ -17,6 +17,8 @@ void Model::Render(Shader *shader)
     if (WireFrame)
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
+    shader->SetVector3("fragmentColor", Color);
+
     for (auto &&mesh : _meshes)
         mesh.Render(shader);
 
