@@ -74,7 +74,7 @@ Camera *ScenePanel::GetCamera()
 
 void ScenePanel::HandleMouseInput()
 {
-    if (!ImGui::IsWindowHovered())
+    if (!ImGui::IsWindowFocused())
         return;
 
     double x, y;
