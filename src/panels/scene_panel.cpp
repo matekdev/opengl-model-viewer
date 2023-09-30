@@ -1,6 +1,6 @@
 #include "scene_panel.hpp"
 
-ScenePanel::ScenePanel(int width, int height) : _width(width), _height(height)
+ScenePanel::ScenePanel(GLFWwindow *window, int width, int height) : _window(window), _width(width), _height(height)
 {
     _model = std::make_unique<Model>();
     _camera = std::make_unique<Camera>();
@@ -52,6 +52,8 @@ void ScenePanel::Render(Shader *shader)
 
     ImGui::Image(reinterpret_cast<void *>(_textureId), ImVec2{size.x, size.y}, ImVec2{0, 1}, ImVec2{1, 0});
 
+    HandleMouseInput();
+
     ImGui::End();
 }
 
@@ -68,4 +70,14 @@ Model *ScenePanel::GetModel()
 Camera *ScenePanel::GetCamera()
 {
     return _camera.get();
+}
+
+void ScenePanel::HandleMouseInput()
+{
+    if (!ImGui::IsWindowHovered())
+        return;
+
+    double x, y;
+    glfwGetCursorPos(_window, &x, &y);
+    GetCamera()->OnMouseMove(x, y, Input::GetPressedButton(_window));
 }

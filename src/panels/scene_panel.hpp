@@ -16,7 +16,7 @@
 class ScenePanel
 {
 public:
-    ScenePanel(int width, int height);
+    ScenePanel(GLFWwindow *window, int width, int height);
     void Render(Shader *shader);
     void LoadMesh(const std::string &filePath);
     Camera *GetCamera();
@@ -32,6 +32,9 @@ private:
     GLuint _rbo;
     GLuint _textureId;
 
+    GLFWwindow *_window;
     std::unique_ptr<Camera> _camera;
     std::unique_ptr<Model> _model;
+
+    void HandleMouseInput();
 };

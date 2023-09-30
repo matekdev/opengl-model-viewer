@@ -21,7 +21,7 @@ OpenGLContext::OpenGLContext(int width, int height, const std::string &windowNam
     _shader = std::make_unique<Shader>("shaders/vs.vert", "shaders/fs.frag");
 
     _uiContext = std::make_unique<UIContext>(_window);
-    _scenePanel = std::make_unique<ScenePanel>(800, 600);
+    _scenePanel = std::make_unique<ScenePanel>(_window, 800, 600);
     _settingsPanel = std::make_unique<SettingsPanel>([this](const std::string &filePath)
                                                      { _scenePanel->LoadMesh(filePath); });
 }
@@ -64,11 +64,6 @@ void OpenGLContext::PostRender()
 {
     glfwPollEvents();
     glfwSwapBuffers(_window);
-
-    double x, y;
-    glfwGetCursorPos(_window, &x, &y);
-
-    GetCamera()->OnMouseMove(x, y, Input::GetPressedButton(_window));
 }
 
 void OpenGLContext::OnScroll(GLFWwindow *window, double xoffset, double yoffset)
