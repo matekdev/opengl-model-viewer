@@ -5,9 +5,6 @@ ScenePanel::ScenePanel(GLFWwindow *window, int width, int height) : _window(wind
     _model = std::make_unique<Model>();
     _camera = std::make_unique<Camera>();
 
-    // TODO: Remove
-    LoadMesh("models/stanford-bunny.obj");
-
     glGenFramebuffers(1, &_fbo);
     glBindFramebuffer(GL_FRAMEBUFFER, _fbo);
 
