@@ -30,9 +30,9 @@ void SettingsPanel::Render(Camera *camera, Model *model, Shader *shader)
         if (ImGui::Button("Reset Position", ImVec2(-FLT_MIN, 0.0f)))
             camera->Reset();
 
-        ImGui::DragFloat3("Position", glm::value_ptr(camera->Position), 0.25f, -FLT_MIN, FLT_MAX);
-        ImGui::DragFloat3("Focus Point", glm::value_ptr(camera->FocusPoint), 0.25f, -FLT_MIN, FLT_MAX);
-        ImGui::DragFloat("Zoom", &camera->Distance, 0.1f, -FLT_MIN, FLT_MAX);
+        ImGui::DragFloat3("Position", glm::value_ptr(camera->Position), 0.05f, -FLT_MIN, FLT_MAX);
+        ImGui::DragFloat3("Focus Point", glm::value_ptr(camera->FocusPoint), 0.05f, -FLT_MIN, FLT_MAX);
+        ImGui::DragFloat("Zoom", &camera->Distance, 0.05f, -FLT_MIN, FLT_MAX);
         ImGui::SliderFloat("Rotation Speed", &camera->RotationSpeed, 0.0f, 5.0f);
     }
 
