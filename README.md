@@ -1,6 +1,6 @@
 # OpenGL Model Viewer
 
-A simple OpenGL Model Viewer written in C++ to get familiar with OpenGL and the libraries used within this project. This project serves a great reference to anyone interested in learning graphics programming.
+A simple OpenGL Model Viewer written in C++ to get familiar with OpenGL and imgui
 
 ![Preview](imgs/preview1.gif)
 
